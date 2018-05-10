@@ -1,0 +1,50 @@
+<!-- <section class="section"> -->
+<!-- <div>
+    <a class="button is-primary" routerLink="/user/new">Add User</a>
+  </div>
+  <br> -->
+<div class="content">
+  <h3><strong>User List</strong></h3>
+</div>
+<div class="columns">
+  <div class="column">
+    <!-- <ul>
+        <li *ngFor="let user of users">
+          <a routerLink="/user/{{ user.id }}">
+            <span>{{ user.id }}</span> {{ user.name }}
+          </a>
+        </li>
+      </ul> -->
+    <div>{{selectedUser}}</div>
+    <table class="table is-bordered is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Room
+            <input class="input" #searchBox id="search-box" (keyup)="search(searchBox.value)" value="{{ roomTerm }}" />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>
+            <a routerLink="/user/{{ user.id }}">{{user.id}}</a>
+          </td>
+          <td>{{user.name}}</td>
+          <td>
+            <a routerLink="/room/{{ user.roomId }}">{{user.roomId}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="pagination is-right" role="navigation" aria-label="pagination">
+      <ul class="pagination-list">
+        <li *ngFor="let page of pageCount">
+          <a class="pagination-link" [ngClass]="{'is-current': currentPage == page}" (click)="getUsers(page, searchBox.value)">{{page}}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- </section> -->

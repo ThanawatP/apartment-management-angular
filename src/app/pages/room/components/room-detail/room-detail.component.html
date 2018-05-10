@@ -1,0 +1,39 @@
+<div *ngIf="room">
+  <!-- <section class="section"> -->
+  <div class="columns">
+    <div class="column">
+      <div class="content">
+        <h3>
+          Room
+          <strong>{{ room.id }}</strong>
+        </h3>
+        <dl>
+          <dt>User</dt>
+          <dd *ngIf="room.user.id">ID: {{ room.user.id }}</dd>
+          <dd *ngIf="room.user.name">Name: {{ room.user.name }}</dd>
+          <dt>Rates</dt>
+          <dd>{{ room.rates }}</dd>
+        </dl>
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button" routerLink="/room/{{ room.id }}/edit">
+              Edit
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-info" disabled>
+              Save changes
+            </a>
+          </p>
+        </div>
+      </div>
+      <button class="button" (click)="goBack()">
+        <span class="icon is-small">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Go back</span>
+      </button>
+    </div>
+  </div>
+  <!-- </section> -->
+</div>

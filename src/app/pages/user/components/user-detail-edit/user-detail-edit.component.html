@@ -1,0 +1,63 @@
+<div *ngIf="user">
+  <!-- <section class="section"> -->
+  <div class="content">
+    <h3>
+      <strong>{{ user.name }}</strong>
+    </h3>
+  </div>
+  <div class="columns">
+    <div class="column is-one-third">
+      <figure class="image is-3by2">
+        <img src="https://bulma.io/images/placeholders/480x320.png">
+      </figure>
+    </div>
+    <div class="column">
+      <div class="content">
+        <div [hidden]="submitted">
+          <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+            <dl>
+              <dt>ID</dt>
+              <dd>{{ user.id }}</dd>
+              <dt>Birth date</dt>
+              <dd>{{ user.birthDate | date }}</dd>
+              <dt>Phone number</dt>
+              <dd>
+                <input class="input" type="text" placeholder="08x-xxx-xxxx" [(ngModel)]="user.phoneNumber" name="phoneNumber">
+              </dd>
+              <dt>Room</dt>
+              <dd>
+                <span class="select">
+                  <select [(ngModel)]="user.roomId" name="roomId">
+                    <!-- <option selected>{{ user.roomId }}</option>
+                  <option>A1</option>
+                  <option>A2</option> -->
+                    <option *ngFor="let room of rooms" [value]="room.id">{{room.id}}</option>
+                  </select>
+                </span>
+              </dd>
+            </dl>
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="button" disabled>
+                  Edit
+                </a>
+              </p>
+              <p class="control">
+                <button class="button is-info" [disabled]="!userForm.form.dirty">
+                  Save changes
+                </button>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <button class="button" (click)="goBack()">
+        <span class="icon is-small">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Go back</span>
+      </button>
+    </div>
+  </div>
+  <!-- </section> -->
+</div>

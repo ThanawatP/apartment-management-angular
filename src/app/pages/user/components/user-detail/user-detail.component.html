@@ -1,0 +1,48 @@
+<div *ngIf="user">
+  <!-- <section class="section"> -->
+  <div class="content">
+    <h3>
+      <strong>{{ user.name }}</strong>
+    </h3>
+  </div>
+  <div class="columns">
+    <div class="column is-one-third">
+      <figure class="image is-3by2">
+        <img src="https://bulma.io/images/placeholders/480x320.png">
+      </figure>
+    </div>
+    <div class="column">
+      <div class="content">
+        <dl>
+          <dt>ID</dt>
+          <dd>{{ user.id }}</dd>
+          <dt>Birth date</dt>
+          <dd>{{ user.birthDate | date }}</dd>
+          <dt>Phone number</dt>
+          <dd>08x-xxx-xxxx</dd>
+          <dt>Room</dt>
+          <dd>{{ user.roomId }}</dd>
+        </dl>
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button" routerLink="/user/{{ user.id }}/edit">
+              Edit
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-info" disabled>
+              Save changes
+            </a>
+          </p>
+        </div>
+      </div>
+      <button class="button" (click)="goBack()">
+        <span class="icon is-small">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Go back</span>
+      </button>
+    </div>
+  </div>
+  <!-- </section> -->
+</div>

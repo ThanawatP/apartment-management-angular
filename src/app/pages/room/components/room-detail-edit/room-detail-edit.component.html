@@ -1,0 +1,42 @@
+<div *ngIf="room">
+  <div class="columns">
+    <div class="column">
+      <div class="content">
+        <div [hidden]="submitted">
+          <h3>
+            <strong>{{ room.id }}</strong>
+          </h3>
+          <form (ngSubmit)="onSubmit()" #roomForm="ngForm">
+            <dl>
+              <dt>User</dt>
+              <dd *ngIf="room.user.id">{{ room.user.id }}</dd>
+              <dd *ngIf="room.user.name">{{ room.user.name }}</dd>
+              <dt>Rates</dt>
+              <dd>
+                <input class="input" type="text" placeholder="{{room.rates}}" [(ngModel)]="room.rates" name="rates">
+              </dd>
+            </dl>
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="button" disabled>
+                  Edit
+                </a>
+              </p>
+              <p class="control">
+                <button class="button is-info" [disabled]="!roomForm.form.dirty">
+                  Save changes
+                </button>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <button class="button" (click)="goBack()">
+        <span class="icon is-small">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Go back</span>
+      </button>
+    </div>
+  </div>
+</div>

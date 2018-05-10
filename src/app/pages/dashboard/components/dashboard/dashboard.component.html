@@ -1,0 +1,95 @@
+<!-- <section class="section"> -->
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-4">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <div class="field">
+          <label class="label">Filter room</label>
+          <div class="control">
+            <input class="input" #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+          </div>
+        </div>
+        <article class="tile is-child notification is-primary">
+          <!-- <ul class="rooms">
+              <li *ngFor="let room of rooms" [ngClass]="{'is-active': room == selectedRoom}" (click)="onSelect(room)">
+                <span class="badge">{{room.id}}</span>
+              </li>
+            </ul> -->
+          <div class="columns" *ngFor="let roomline of rooms">
+            <div class="column is-one-fifth" *ngFor="let room of roomline" [ngClass]="{'is-active': room == selectedRoom}" (click)="onSelect(room)">
+              <strong *ngIf="room == selectedRoom">{{room.id}}</strong>
+              <small *ngIf="room != selectedRoom">{{room.id}}</small>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+  <div class="tile is-parent is-vertical">
+    <article class="tile is-child notification is-link">
+      <div class="content">
+        <p class="title">Room {{selectedRoom.id}}</p>
+        <p class="subtitle">{{selectedRoom.user.name}}</p>
+        <div class="content" *ngIf="rental">
+          <!-- {{rental.id}} -->
+          <table class="table is-narrow">
+            <tbody>
+              <tr>
+                <td>Bill period</td>
+                <td>{{rental.billPeriod}}</td>
+              </tr>
+              <tr>
+                <td>Room cost</td>
+                <td>{{rental.rate}}</td>
+              </tr>
+              <tr>
+                <td>Electricity bill cost</td>
+                <!-- <td>{{rental["electricity_bill"]["cost"]}}</td> -->
+                <td>{{rental.electricityBill.cost}}</td>
+              </tr>
+              <tr>
+                <td>Water bill cost</td>
+                <!-- <td>{{rental["water_bill"]["cost"]}}</td> -->
+                <td>{{rental.waterBill.cost}}</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td>
+                  <strong>{{rental.total}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td>{{rental.status}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <nav class="level" *ngIf="rental">
+            <div class="level-left"></div>
+            <div class="level-right">
+              <div class="level-item">
+                <div class="field is-grouped">
+                  <p class="control">
+                    <button class="button" [disabled]="rental.status == 'paid'">
+                      Edit
+                    </button>
+                  </p>
+                  <p class="control">
+                    <button class="button is-danger" (click)="updateRental(rental.id)" [disabled]="rental.status == 'paid'">
+                      Pay
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </nav>
+        </div>
+      </div>
+    </article>
+    <article class="tile is-child notification">
+      <app-monthly-graph [rentals]="rentals"></app-monthly-graph>
+    </article>
+  </div>
+</div>
+<!-- </section> -->

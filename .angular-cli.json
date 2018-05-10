@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "../node_modules/bulma/css/bulma.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

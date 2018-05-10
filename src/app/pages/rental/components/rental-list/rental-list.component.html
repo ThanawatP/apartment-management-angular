@@ -1,0 +1,80 @@
+<!-- <section class="section"> -->
+<div class="content">
+  <h3>
+    <strong>Rental List</strong>
+  </h3>
+  <div class="columns">
+    <div class="column is-2">
+      <div class="dropdown" [ngClass]="{'is-active': dropdown == true}" (click)="toggleDropdown()">
+        <div class="dropdown-trigger">
+          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+            <span>{{ currentBillPeriod }}</span>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <a class="dropdown-item" *ngFor="let billPeriod of billPeriods" [ngClass]="{'is-active': currentBillPeriod == billPeriod['_id']}"
+              (click)="setCurrentBillPeriod(billPeriod['_id'])">
+              {{ billPeriod["_id"] }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="control">
+        Status:
+        <label class="radio">
+          <input type="radio" name="status" (click)="setStatus('all')" [checked]="status == 'all'"> all
+        </label>
+        <label class="radio">
+          <input type="radio" name="status" (click)="setStatus('paid')" [checked]="status == 'paid'"> paid
+        </label>
+        <label class="radio">
+          <input type="radio" name="status" (click)="setStatus('pending')" [checked]="status == 'pending'"> pending
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="columns">
+  <div class="column">
+    <table class="table is-bordered is-fullwidth is-hoverable">
+      <thead>
+        <tr>
+          <th>Room ID
+            <input class="input" #searchBox id="search-box" (keyup)="search(searchBox.value)" value="{{ roomTerm }}" />
+          </th>
+          <th>Total Cost</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rental of rentals">
+          <td>
+            <a routerLink="/room/{{ rental['room_id'] }}">{{ rental["room_id"] }}</a>
+          </td>
+          <td>{{ rental.total }}</td>
+          <td>
+            <span class="tag" [ngClass]="{'is-danger': rental.status == 'pending', 'is-success': rental.status == 'paid'}">{{ rental.status }}</span>
+          </td>
+          <td>
+            <button class="button is-info" routerLink="/rental/{{ rental['_id'] }}">detail</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="pagination is-right" role="navigation" aria-label="pagination">
+      <ul class="pagination-list">
+        <li *ngFor="let page of pageCount">
+          <a class="pagination-link" [ngClass]="{'is-current': currentPage == page}" (click)="getRentals(page, null, searchBox.value)">{{page}}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- </section> -->

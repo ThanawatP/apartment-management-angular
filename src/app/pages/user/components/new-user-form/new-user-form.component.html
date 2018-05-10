@@ -1,0 +1,97 @@
+<!-- <div class="section"> -->
+<div class="columns">
+  <div class="column is-one-third">
+    <div class="content">
+      <h3><strong>New User</strong></h3>
+      <div [hidden]="submitted">
+        <form (ngSubmit)="onSubmit()" #newUserForm="ngForm">
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="id">ID</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text" placeholder="Identification Number" id="id" required [(ngModel)]="newUser.id" name="id"
+                    #id="ngModel">
+                </div>
+                <p class="help is-danger" *ngIf="id.invalid && (id.dirty || id.touched)">
+                  This field is required
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Name</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input class="input" type="text" placeholder="Name Surname" id="name" required [(ngModel)]="newUser.name" name="name" #name="ngModel">
+                </div>
+                <p class="help is-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                  This field is required
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label"></div>
+            <div class="field-body">
+              <div class="field is-expanded">
+                <div class="field has-addons">
+                  <p class="control">
+                    <a class="button is-static">
+                      <i class="fas fa-phone"></i>
+                    </a>
+                  </p>
+                  <p class="control is-expanded">
+                    <!-- <input class="input" type="tel" placeholder="Phone number"> -->
+                    <input class="input" type="tel" placeholder="Phone number" id="phoneNumber" [(ngModel)]="newUser.phoneNumber" name="phoneNumber"
+                      #phoneNumber="ngModel">
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Room</label>
+            </div>
+            <div class="field-body">
+              <div class="field is-narrow">
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select class="form-control" id="roomId" [(ngModel)]="newUser.roomId" name="roomId" #roomId="ngModel">
+                      <option *ngFor="let room of rooms" [value]="room.id">{{room.id}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <!-- Left empty for spacing -->
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <button class="button is-primary" [disabled]="!newUserForm.form.valid" (click)="addUser(); newUserForm.reset()">
+                    Create
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

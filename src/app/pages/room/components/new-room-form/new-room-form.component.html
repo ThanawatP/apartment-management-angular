@@ -1,0 +1,59 @@
+<!-- <div class="section"> -->
+  <div class="columns">
+    <div class="column is-one-third">
+      <div class="content">
+        <h3><strong>New Room</strong></h3>
+        <div [hidden]="submitted">
+          <form (ngSubmit)="onSubmit()" #newRoomForm="ngForm">
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label" for="id">ID</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input class="input" type="text" id="id" required [(ngModel)]="newRoom.id" name="id" #id="ngModel">
+                  </div>
+                  <p class="help is-danger" *ngIf="id.invalid && (id.dirty || id.touched)">
+                    This field is required
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label is-normal">
+                <label class="label">Rates</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <input class="input" type="text" placeholder="1,000" id="rates" required [(ngModel)]="newRoom.rates" name="rates" #rates="ngModel">
+                  </div>
+                  <p class="help is-danger" *ngIf="rates.invalid && (rates.dirty || rates.touched)">
+                    This field is required
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <!-- Left empty for spacing -->
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary" [disabled]="!newRoomForm.form.valid" (click)="addRoom(); newRoomForm.reset()">
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

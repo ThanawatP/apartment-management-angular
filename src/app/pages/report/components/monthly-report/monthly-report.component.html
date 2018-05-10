@@ -1,0 +1,31 @@
+<div class="content">
+  <div *ngIf="report">
+    <h3><strong>Summary report of {{report.billPeriod}}</strong></h3>
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Paid</p>
+          <p class="title">{{report.paid}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Pending</p>
+          <p class="title">{{report.pending}}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Total</p>
+          <p class="title">{{report.total}}</p>
+        </div>
+      </div>
+    </nav>
+    <div *ngIf="report.pendingRooms">
+      <h4>Pending Rooms ({{report.pendingRooms.length}})</h4>
+      <ul>
+        <li *ngFor="let room of report.pendingRooms">{{room}}</li>
+      </ul>
+    </div>
+  </div>
+</div>

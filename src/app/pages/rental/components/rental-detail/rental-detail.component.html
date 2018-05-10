@@ -1,0 +1,53 @@
+<div *ngIf="rental">
+    <div class="columns">
+      <div class="column">
+        <div class="content">
+          <h3>
+            Transaction number:
+            <strong>{{ rental.id }}</strong>
+          </h3>
+          <table class="table is-bordered is-fullwidth is-hoverable">
+            <tbody>
+              <tr>
+                <td>Room ID</td>
+                <td>
+                  <a routerLink="/room/{{ rental.roomId }}">{{ rental.roomId }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td>User ID</td>
+                <td>
+                  <a routerLink="/user/{{ rental.userId }}">{{ rental.userId }}</a>
+                </td>
+              </tr>
+              <tr>
+                <td>Electricity Bill</td>
+                <td>({{ rental.electricityBill.recentReading }} - {{ rental.electricityBill.previousReading }}) * {{ rental.electricityBill.rate }} = {{ rental.electricityBill.cost }}</td>
+              </tr>
+              <tr>
+                <td>Water Bill</td>
+                <td>({{ rental.waterBill.recentReading }} - {{ rental.waterBill.previousReading }}) * {{ rental.waterBill.rate }} = {{ rental.waterBill.cost }}</td>
+              </tr>
+              <tr>
+                <td>Room Rate</td>
+                <td>{{ rental.rate }}</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td>{{ rental.rate }} + {{ rental.electricityBill.cost }} + {{ rental.waterBill.cost }} = {{ rental.total }}</td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td>{{ rental.status }}</td>
+              </tr>
+              <tr>
+                <td>Bill Period</td>
+                <td>{{ rental.billPeriod }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="button" (click)="goBack()">Go back</button>
+      </div>
+    </div>
+</div>
