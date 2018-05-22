@@ -1,0 +1,25 @@
+<div class="content">
+  <h3>
+    <strong>Rate List</strong>
+  </h3>
+</div>
+<div class="columns">
+  <div class="column">
+    <table class="table is-bordered is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rate of rates">
+          <td>
+            <a routerLink="/rate/{{ rate.id }}">{{rate.id}}</a>
+          </td>
+          <td>{{rate.value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,19 +1,16 @@
-<div *ngIf="room">
+<div *ngIf="rate">
   <div class="columns">
     <div class="column is-one-third">
       <div class="content">
         <div [hidden]="submitted">
           <h3>
-            <strong>{{ room.id }}</strong>
+            <strong>{{ rate.id | uppercase }}</strong>
           </h3>
-          <form (ngSubmit)="onSubmit()" #roomForm="ngForm">
+          <form (ngSubmit)="onSubmit()" #rateForm="ngForm">
             <dl>
-              <dt>User</dt>
-              <dd *ngIf="room.user.id">{{ room.user.id }}</dd>
-              <dd *ngIf="room.user.name">{{ room.user.name }}</dd>
-              <dt>Rates</dt>
+              <dt>Value</dt>
               <dd>
-                <input class="input" type="text" placeholder="{{room.rates}}" [(ngModel)]="room.rates" name="rates">
+                <input class="input" type="text" placeholder="{{rate.value}}" [(ngModel)]="rate.value" name="value">
               </dd>
             </dl>
             <div class="field is-grouped">
@@ -23,7 +20,7 @@
                 </a>
               </p>
               <p class="control">
-                <button class="button is-info" [disabled]="!roomForm.form.dirty">
+                <button class="button is-info" [disabled]="!rateForm.form.dirty">
                   Save changes
                 </button>
               </p>

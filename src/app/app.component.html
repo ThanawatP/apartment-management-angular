@@ -32,6 +32,9 @@
               </li>
             </ul>
           </li>
+          <li>
+            <a routerLink="/rate/list" [ngClass]="{'is-active': currentPage == 'rates'}" (click)="setCurrentPage('rates')">Rates</a>
+          </li>
         </ul>
         <p class="menu-label">
           Transactions
@@ -50,5 +53,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  <!-- <app-messages></app-messages> -->
 </div>

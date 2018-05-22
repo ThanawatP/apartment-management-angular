@@ -1,0 +1,33 @@
+<div *ngIf="rate">
+  <div class="columns">
+    <div class="column">
+      <div class="content">
+        <h3>
+          <strong>{{ rate.id | uppercase }}</strong>
+        </h3>
+        <dl>
+          <dt>Value</dt>
+          <dd>{{ rate.value }}</dd>
+        </dl>
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button" routerLink="/rate/{{ rate.id }}/edit">
+              Edit
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-info" disabled>
+              Save changes
+            </a>
+          </p>
+        </div>
+      </div>
+      <button class="button" (click)="goBack()">
+        <span class="icon is-small">
+          <i class="fas fa-angle-left"></i>
+        </span>
+        <span>Go back</span>
+      </button>
+    </div>
+  </div>
+</div>
