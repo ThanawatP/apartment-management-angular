@@ -65,7 +65,6 @@ export class DashboardComponent implements OnInit {
       };
       if (room["user"]) {
         if (room["user"]["id"] != "") {
-          console.log("name: " + room["user"]["name"])
           mappedRoom.user.id = room["user"]["id"];
           mappedRoom.user.name = room["user"]["name"];
         }
@@ -88,6 +87,7 @@ export class DashboardComponent implements OnInit {
   getRentals(roomId: string) {
     this.rentalService.getRentals(1, null, null, null, roomId, true).subscribe(rentals => {
       this.rentals = rentals["data"] as Rental[];
+      this.rentalService.rentals = this.rentals;
       if (this.rentals.length != 0) {
         this.mappingRental(this.rentals[this.rentals.length - 1]);
       } else {

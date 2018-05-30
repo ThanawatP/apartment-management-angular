@@ -11,23 +11,25 @@ import { Rental } from '../../../../shared/models/rental';
 })
 export class MonthlyGraphComponent implements OnInit {
   chart = [];
-  @Input() room: Room;
-  @Input() rentals: Rental[];
-  constructor(private rentelService: RentalService) { }
+  constructor(private rentalService: RentalService) { }
 
   ngOnInit() {
-    this.getRentals("A1");
+    this.rentalService.rentals$.subscribe(rentals => {
+      this.generateGraph(rentals);
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
     for (let propName in changes) {
       if (propName === 'rentals') {
-        this.getRentals("");
+        this.rentalService.rentals$.subscribe(rentals => {
+          this.generateGraph(rentals);
+        })
       }
     }
   }
 
-  getRentals(roomID: string) {
+  generateGraph(rentals: Rental[]) {
     let data = [];
     let count = 0;
     let backgroundColor = [
@@ -45,7 +47,7 @@ export class MonthlyGraphComponent implements OnInit {
       'rgba(54, 162, 235, 0.2)',
     ];
     const pendingColor = 'rgba(255, 99, 132, 0.2)';
-    for (let rental of this.rentals) {
+    for (let rental of rentals) {
       data.push(+rental["total"]);
       if (rental["status"] == "pending") {
         backgroundColor[count] = pendingColor;

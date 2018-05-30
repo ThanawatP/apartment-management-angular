@@ -13,9 +13,11 @@ export class RentalService {
   private _currentBillPeriod = new BehaviorSubject<string>("");
   private _roomTerm = new BehaviorSubject<string>("");
   private _status = new BehaviorSubject<string>("all");
+  private _rentals = new BehaviorSubject<Rental[]>([]);
 
   constructor(private _httpService: HttpService) { }
 
+  // currentBillPeriod
   get currentBillPeriod() {
     return this._currentBillPeriod.value;
   }
@@ -24,6 +26,7 @@ export class RentalService {
     this._currentBillPeriod.next(billPeriod);
   }
 
+   // roomTerm
   get roomTerm$() {
     return this._roomTerm.asObservable();
   }
@@ -36,6 +39,7 @@ export class RentalService {
     this._roomTerm.next(roomTerm);
   }
 
+  // status
   get status() {
     return this._status.value;
   }
@@ -43,6 +47,20 @@ export class RentalService {
   set status(status: string) {
     this._status.next(status);
   }
+
+  // rentals
+  get rentals$() {
+    return this._rentals.asObservable();
+  }
+
+  get rentals() {
+    return this._rentals.value;
+  }
+
+  set rentals(rentals: Rental[]) {
+    this._rentals.next(rentals);
+  }
+
 
   getRentals(page: Number, status: string, billPeriod?: string, roomTerm?: string, roomID?: string, isAnnual?: boolean): Observable<Object> {
     let path = `/rental/list?page=${page}`;
