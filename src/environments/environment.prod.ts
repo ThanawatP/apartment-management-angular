@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_uri: 'http://localhost:3001'
+  api_uri: 'https://thanawatp.app/api'
 };
