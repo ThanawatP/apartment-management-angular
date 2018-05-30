@@ -70,7 +70,7 @@ export class UserService {
     if (user.phoneNumber) {
       body = body.set('phone_number', user.phoneNumber);
     }
-    return this._httpService.POST_FORM(`/user/${user.id}`, body)
+    return this._httpService.POST_FORM(`/user/${user.id}`, body);
   }
 
   addUser(user: User): Observable<Object> {

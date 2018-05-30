@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Rental } from '../../../../shared/models/rental';
 import { RentalService } from '../../rental.service';
 import { MessageService } from '../../../../shared/services/message.service';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -25,7 +25,6 @@ export class RentalDetailComponent implements OnInit {
 
   getRental(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    // this.user = {id: "1", name: "tae"}
     this.rentalService.getRental(id)
       .subscribe(rental => this.mapping(rental));
   }
@@ -55,11 +54,10 @@ export class RentalDetailComponent implements OnInit {
       billPeriod: rental["bill_period"],
       createdAt: rental["created_at"],
       updatedAt: rental["updated_at"]
-    }
-    // this.userService.user = this.user;
+    };
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 }

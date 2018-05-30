@@ -41,7 +41,7 @@ export class NewRoomFormComponent implements OnInit {
       id: room["_id"],
       user: new User(),
       rates: room["rates"]
-    }
+    };
     if (room["user"]) {
       if (room["user"]["id"] != "") {
         this.newRoom.user.id = room["user"]["id"];
@@ -52,9 +52,4 @@ export class NewRoomFormComponent implements OnInit {
     this.roomService.rooms = this.rooms;
 
   }
-
-  get diagnostic() {
-    return JSON.stringify(this.newRoom);
-  }
-
 }

@@ -20,21 +20,20 @@ export class RentalListComponent implements OnInit {
   currentPage: Number = 1;
   dropdown: Boolean = false;
   currentBillPeriod: string;
-  roomTerm: string
-  status: string
+  roomTerm: string;
+  status: string;
 
   constructor(private rentalService: RentalService) { }
 
   ngOnInit() {
-    this.getBillPeriods()
-    this.search(this.rentalService.roomTerm)
-    console.log(`init: ${this.rentalService.currentBillPeriod}`)
+    this.getBillPeriods();
+    this.search(this.rentalService.roomTerm);
   }
 
   search(term): void {
-    this.roomTerm = term
-    this.rentalService.roomTerm = term
-    this.status = this.rentalService.status
+    this.roomTerm = term;
+    this.rentalService.roomTerm = term;
+    this.status = this.rentalService.status;
     this.rentalService.roomTerm$.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -45,63 +44,51 @@ export class RentalListComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((roomTerm: string) => this.rentalService.getRentals(this.currentPage, this.rentalService.status, this.rentalService.currentBillPeriod, roomTerm)),
     ).subscribe(rentals => {
-      this.rentals = rentals["data"] as Rental[]
+      this.rentals = rentals["data"] as Rental[];
       if (rentals["total"] != 0) {
-        console.log(`total page = ${Math.floor(rentals["total"] / 10) + 1}`)
-        let count = Math.floor(rentals["total"] / 10)
-        if (count == 0) {
-          count += 1
-        }
-        console.log(`total page = ${count}`)
-        this.pageCount = Array(count).fill(null).map((x, i) => i + 1)
-        console.log(`page count = ${this.pageCount}`)
+        this.pageCount = Array(Math.ceil(rentals["total"] / 10)).fill(null).map((x, i) => i + 1);
       }
-    })
+    });
   }
 
   getRentals(page: Number, status: string, billPeriod: string): void {
     this.rentalService.getRentals(page, status, billPeriod).subscribe(rentals => {
-      this.rentals = rentals["data"] as Rental[]
+      this.rentals = rentals["data"] as Rental[];
       if (rentals["total"] != 0) {
-        console.log(`total page = ${Math.floor(rentals["total"] / 10) + 1}`)
-        this.pageCount = Array(Math.floor(rentals["total"] / 10) + 1).fill(null).map((x, i) => i + 1)
-        console.log(`page count = ${this.pageCount}`)
+        this.pageCount = Array(Math.ceil(rentals["total"] / 10)).fill(null).map((x, i) => i + 1);
       }
     })
-    this.currentPage = page
+    this.currentPage = page;
   }
 
 
   getBillPeriods(): void {
     this.rentalService.getBillPeriods().subscribe(billPeriods => {
-      this.billPeriods = billPeriods
+      this.billPeriods = billPeriods;
       if (!this.rentalService.currentBillPeriod) {
-        this.rentalService.currentBillPeriod = billPeriods[0]["_id"]
+        this.rentalService.currentBillPeriod = billPeriods[0]["_id"];
       }
-      this.currentBillPeriod = this.rentalService.currentBillPeriod
-      console.log(`bill periods: ${JSON.stringify(billPeriods)}`)
+      this.currentBillPeriod = this.rentalService.currentBillPeriod;
     })
   }
 
   toggleDropdown(): void {
     if (this.dropdown) {
-      this.dropdown = false
+      this.dropdown = false;
     } else {
-      this.dropdown = true
+      this.dropdown = true;
     }
   }
 
   setCurrentBillPeriod(billPeriod: string) {
-    this.rentalService.currentBillPeriod = billPeriod
-    this.currentBillPeriod = billPeriod
-    this.getRentals(this.currentPage, this.status, billPeriod)
-    console.log(`bill periods: ${this.rentalService.currentBillPeriod}`)
+    this.rentalService.currentBillPeriod = billPeriod;
+    this.currentBillPeriod = billPeriod;
+    this.getRentals(this.currentPage, this.status, billPeriod);
   }
 
   setStatus(status: string) {
-    this.rentalService.status = status
-    this.status = status
-    this.getRentals(this.currentPage, status, this.rentalService.currentBillPeriod)
-    console.log(`status: ${this.status}`)
+    this.rentalService.status = status;
+    this.status = status;
+    this.getRentals(this.currentPage, status, this.rentalService.currentBillPeriod);
   }
 }

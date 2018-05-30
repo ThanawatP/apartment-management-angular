@@ -12,7 +12,6 @@ import { Location } from '@angular/common';
 })
 export class UserDetailEditComponent implements OnInit {
   user: User;
-  // updatedUser: User = new User();
   rooms: Room[];
 
   constructor(
@@ -27,27 +26,23 @@ export class UserDetailEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("submit")
     this.userService.updateUser(this.user).subscribe(user => console.log("updated: " + JSON.stringify(user)));
     this.goBack();
   }
 
   getUser() {
     this.userService.user$.subscribe(user => {
-      console.log("a" + JSON.stringify(user));
       this.user = user;
-      // this.updatedUser.id = this.user.id;
     });
   }
 
   getAvailableRooms() {
-    this.roomService.getAvailableRooms().subscribe(rooms => this.mapping(rooms))
+    this.roomService.getAvailableRooms().subscribe(rooms => this.mapping(rooms));
   }
 
   mapping(rooms: Object[]): void {
     let temps: Room[] = [new Room()];
     for (let room of rooms) {
-      console.log(room)
       let mappedRoom: Room = {
         id: room["_id"],
         user: new User(),
@@ -55,8 +50,6 @@ export class UserDetailEditComponent implements OnInit {
       }
       if (room["user"]) {
         if (room["user"]["id"] != "") {
-          console.log("id: " +  room["user"]["id"])
-          console.log("name: " +  room["user"]["name"])
           mappedRoom.user.id = room["user"]["id"];
           mappedRoom.user.name = room["user"]["name"];
         }
@@ -64,12 +57,9 @@ export class UserDetailEditComponent implements OnInit {
       temps.push(mappedRoom);
     }
     this.rooms = temps;
-    console.log(this.rooms.length)
   }
 
   goBack(): void {
     this.location.back();
   }
-
-  get diagnostic() { return JSON.stringify(this.user); }
 }

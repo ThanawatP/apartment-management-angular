@@ -17,17 +17,17 @@ export class RoomListComponent implements OnInit {
   rooms: Room[];
   pageCount: Number[];
   currentPage: Number = 1;
-  term: string
+  term: string;
 
   constructor(private roomService: RoomService) { }
 
   ngOnInit() {
-    this.search(this.roomService.term)
+    this.search(this.roomService.term);
   }
 
   search(term: string): void {
-    this.term = term
-    this.roomService.term = term
+    this.term = term;
+    this.roomService.term = term;
     this.roomService.term$.pipe(
         // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -37,7 +37,7 @@ export class RoomListComponent implements OnInit {
 
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.roomService.getRooms(this.currentPage, term))
-    ).subscribe(rooms => this.mapping(rooms))
+    ).subscribe(rooms => this.mapping(rooms));
   }
 
   getRooms(page: Number, roomTerm?: string): void {
@@ -48,21 +48,16 @@ export class RoomListComponent implements OnInit {
   mapping(data: Object): void {
     let temps: Room[] = [];
     if (data["total"] != 0) {
-      console.log(Math.ceil(data["total"] / 10) + 1)
-      this.pageCount = Array(Math.floor(data["total"] / 10) + 1).fill(null).map((x, i) => i + 1)
-      console.log(this.pageCount)
+      this.pageCount = Array(Math.ceil(data["total"] / 10)).fill(null).map((x, i) => i + 1);
     }
     for (let room of data["data"] as Object[]) {
-      console.log(room)
       let mappedRoom: Room = {
         id: room["_id"],
         user: new User(),
         rates: room["rates"]
-      }
+      };
       if (room["user"]) {
         if (room["user"]["id"] != "") {
-          console.log("id: " +  room["user"]["id"])
-          console.log("name: " +  room["user"]["name"])
           mappedRoom.user.id = room["user"]["id"];
           mappedRoom.user.name = room["user"]["name"];
         }
@@ -71,6 +66,5 @@ export class RoomListComponent implements OnInit {
     }
     this.rooms = temps;
     this.roomService.rooms = this.rooms;
-    console.log(this.rooms.length)
   }
 }

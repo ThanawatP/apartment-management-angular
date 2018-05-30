@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getRooms();
-    this.searchHandle()
+    this.searchHandle();
   }
 
   // Push a search term into the observable stream.
@@ -46,84 +46,52 @@ export class DashboardComponent implements OnInit {
 
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.roomService.getAllRooms(term)),
-    ).subscribe(rooms => this.mapping(rooms))
+    ).subscribe(rooms => this.mapping(rooms));
   }
 
   getRooms(term?: string) {
-    this.roomService.getAllRooms(term).subscribe(rooms => this.mapping(rooms))
+    this.roomService.getAllRooms(term).subscribe(rooms => this.mapping(rooms));
   }
-
-  // mapping(rooms: Object[]): void {
-  //   let temps: Room[] = [];
-  //   for (let room of rooms) {
-  //     console.log(room)
-  //     let mappedRoom: Room = {
-  //       id: room["_id"],
-  //       user: new User(),
-  //       rates: room["rates"]
-  //     }
-  //     if (room["user"]) {
-  //       if (room["user"]["id"] != "") {
-  //         console.log("id: " +  room["user"]["id"])
-  //         console.log("name: " +  room["user"]["name"])
-  //         mappedRoom.user.id = room["user"]["id"];
-  //         mappedRoom.user.name = room["user"]["name"];
-  //       }
-  //     }
-  //     temps.push(mappedRoom);
-  //   }
-  //   this.rooms = temps;
-  //   // this.roomService.rooms = this.rooms;
-  //   // console.log(this.rooms.length)
-  //   this.selectedRoom = this.rooms[1]
-  //   this.getRentals(this.selectedRoom.id)
-  // }
 
   mapping(rooms: Object[]): void {
     let temps: Room[][] = [];
-    console.log(rooms.length / 5)
-    let i = 0
-    let count = 0
+    let i = 0;
+    let count = 0;
     for (let room of rooms) {
-      console.log(room)
       let mappedRoom: Room = {
         id: room["_id"],
         user: new User(),
         rates: room["rates"]
-      }
+      };
       if (room["user"]) {
         if (room["user"]["id"] != "") {
-          console.log("id: " + room["user"]["id"])
           console.log("name: " + room["user"]["name"])
           mappedRoom.user.id = room["user"]["id"];
           mappedRoom.user.name = room["user"]["name"];
         }
       }
       if (!temps[i]) {
-        temps[i] = []
+        temps[i] = [];
       }
-      count++
+      count++;
       temps[i].push(mappedRoom);
       if (count == 5) {
-        count = 0
-        i++
+        count = 0;
+        i++;
       }
     }
     this.rooms = temps;
-    console.log(`temps = ${JSON.stringify(temps)}`)
-    // this.roomService.rooms = this.rooms;
-    // console.log(this.rooms.length)
-    this.selectedRoom = this.rooms[0][0]
-    this.getRentals(this.selectedRoom.id)
+    this.selectedRoom = this.rooms[0][0];
+    this.getRentals(this.selectedRoom.id);
   }
 
   getRentals(roomId: string) {
     this.rentalService.getRentals(1, null, null, null, roomId, true).subscribe(rentals => {
-      this.rentals = rentals["data"] as Rental[]
+      this.rentals = rentals["data"] as Rental[];
       if (this.rentals.length != 0) {
-        this.mappingRental(this.rentals[this.rentals.length - 1])
+        this.mappingRental(this.rentals[this.rentals.length - 1]);
       } else {
-        this.rental = null
+        this.rental = null;
       }
     })
   }
@@ -153,18 +121,15 @@ export class DashboardComponent implements OnInit {
       billPeriod: rental["bill_period"],
       createdAt: rental["created_at"],
       updatedAt: rental["updated_at"]
-    }
-    // this.userService.user = this.user;
+    };
   }
 
   updateRental(id: string) {
-    console.log(`update rental id ${id}`)
-    this.rentalService.updateRental(id).subscribe(rental => this.mappingRental(rental))
+    this.rentalService.updateRental(id).subscribe(rental => this.mappingRental(rental));
   }
 
   onSelect(room: Room): void {
     this.selectedRoom = room;
-    this.getRentals(room.id)
+    this.getRentals(room.id);
   }
-
 }

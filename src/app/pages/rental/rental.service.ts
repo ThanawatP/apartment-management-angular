@@ -47,22 +47,22 @@ export class RentalService {
   getRentals(page: Number, status: string, billPeriod?: string, roomTerm?: string, roomID?: string, isAnnual?: boolean): Observable<Object> {
     let path = `/rental/list?page=${page}`;
     if (roomTerm) {
-      path = `${path}&room_term=${roomTerm}`
+      path = `${path}&room_term=${roomTerm}`;
     }
     let httpOptions = {
       "params": {}
-    }
+    };
     if (roomID || isAnnual) {
-      httpOptions["params"]["room_ids"] = roomID
-      httpOptions["params"]["annual"] = isAnnual
+      httpOptions["params"]["room_ids"] = roomID;
+      httpOptions["params"]["annual"] = isAnnual;
     }
     if (billPeriod) {
-      httpOptions["params"]["bill_period"] = billPeriod
+      httpOptions["params"]["bill_period"] = billPeriod;
     }
     if (status) {
-      httpOptions["params"]["status"] = status
+      httpOptions["params"]["status"] = status;
     }
-    return this._httpService.GET(path, httpOptions)
+    return this._httpService.GET(path, httpOptions);
   }
 
   getRental(id: string): Observable<Object> {
@@ -74,6 +74,6 @@ export class RentalService {
   }
 
   getBillPeriods(): Observable<BillPeriod[]> {
-    return this._httpService.GET('/bill_period/all')
+    return this._httpService.GET('/bill_period/all');
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../../report.service';
 import { RentalService } from '../../../rental/rental.service';
-import { Report } from '../../../../shared/models/report'
+import { Report } from '../../../../shared/models/report';
 
 @Component({
   selector: 'app-monthly-report',
@@ -9,7 +9,7 @@ import { Report } from '../../../../shared/models/report'
   styleUrls: ['./monthly-report.component.css']
 })
 export class MonthlyReportComponent implements OnInit {
-  report: Report
+  report: Report;
 
   constructor(
     private reportService:ReportService,
@@ -17,12 +17,12 @@ export class MonthlyReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.generateReport()
+    this.generateReport();
   }
 
   generateReport() {
     this.rentalService.getBillPeriods().subscribe(billPeriods => {
-      this.reportService.generateReport(billPeriods[0]["_id"]).subscribe(report => this.mapping(report))
+      this.reportService.generateReport(billPeriods[0]["_id"]).subscribe(report => this.mapping(report));
     })
   }
 
@@ -33,8 +33,7 @@ export class MonthlyReportComponent implements OnInit {
       pending: report["pending"],
       total: report["total"],
       pendingRooms: report["pending_rooms"]
-    }
-    console.log(`report: ${JSON.stringify(this.report)}`)
+    };
   }
 
 }
