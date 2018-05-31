@@ -7,7 +7,8 @@ RUN cd /tmp && npm install --production && npm install --dev
 RUN mkdir -p /usr/src/app && cp -a /tmp/node_modules /usr/src/app/
 WORKDIR /usr/src/app
 COPY . /usr/src/app
-RUN npm run build
+RUN chmod +x build.sh
+RUN ["./build.sh"]
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.13
